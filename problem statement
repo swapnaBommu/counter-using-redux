@@ -1,0 +1,3 @@
+React - Redux: Actions, Reducers, stores
+Design a counter with + and - buttons to change the value of the counter. 
+Store the value of the counter in the redux store.
