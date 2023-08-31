@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import React from 'react';
+import './App.css';
+import { increaseCounter,decreaseCounter } from './actions';
+
+class App extends React.Component {
+ 
+  componentDidMount (){
+    const { store } = this.props;
+    store.subscribe(() => {   
+      this.forceUpdate(); // we should not use this method as it forcefully updates the
+    })
+    
+  }
+  increasecount = (val) => {
+    this.props.store.dispatch(increaseCounter(val))
+  }
+  decreasecount = (val) => {
+    this.props.store.dispatch(decreaseCounter(val))
+  }
+  render(){
+    const {counterValue} = this.props.store.getState();
+    return (
+      <div className="App">
+      <h1>Count: {counterValue}</h1>
+      <h2>
+        <button onClick={() => this.increasecount(counterValue)}>+</button>
+        <button onClick={()=> this.decreasecount(counterValue)}>-</button>
+      </h2>
     </div>
-  );
+    );
+  }
+  
 }
 
 export default App;
